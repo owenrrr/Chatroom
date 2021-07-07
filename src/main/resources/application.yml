@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: chatroom
+server:
+  port: 8080

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.EntityMapper">
+
+    <select id="getEntityById" resultMap="Entity">
+        select * from entity where eid=#{eid}
+    </select>
+
+    <select id="getEntityByName" resultMap="Entity">
+        select * from entity where name=#{name}
+    </select>
+
+    <!--    addition-0607      -->
+    <insert id="insertEntities">
+        insert into entity (eid, name, type, property) values
+        <foreach collection="list" item="li"  separator="," >
+            (#{li.eid}, #{li.name}, #{li.type}, #{li.property})
+        </foreach>
+    </insert>
+
+    <update id="updateEntities">
+        <foreach collection="list" item="ent"  separator="," >
+            update entity set name = #{ent.name}, type = #{ent.type}, property = #{ent.property}
+            where eid = #{ent.eid}
+        </foreach>
+    </update>
+
+    <delete id="deleteEntities">
+        <foreach collection="list" item="li"  separator="," >
+            delete from entity where rid = #{li.eid}
+        </foreach>
+    </delete>
+
+    <update id="truncateAllEntities">
+        truncate table entity;
+    </update>
+
+    <select id="getAllEntities" resultMap="Entity">
+        select * from entity
+    </select>
+
+    <resultMap id="Entity" type="com.example.demo.po.Entity">
+        <result column="eid" property="eid"></result>
+        <result column="name" property="name"></result>
+        <result column="type" property="type"></result>
+        <result column="property" property="property"></result>
+    </resultMap>
+
+</mapper>
