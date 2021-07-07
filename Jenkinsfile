@@ -8,5 +8,6 @@ node {
 
     stage('Git') {
         git credentialsId: 'Owen Liu', url: 'https://github.com/owenrrr/Chatroom.git'
+        echo "clone success!"
     }
 }
